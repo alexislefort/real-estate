@@ -12,11 +12,24 @@ app.set( 'view engine', 'ejs' );
 //setting the 'assets' directory as our static assets dir (css, js, img, etc...)
 app.use( '/assets', express.static( 'assets' ) );
 
+function findURL(myURL)
+{
+    var request = require('request');
+    request(myURL, function(error, response, body) {
+        if( !error && response.statusCode == 200){
+            console.log(body)
+            $ = cheerio.load('$0')
+            console.log($)
+        }
+
+    })
+}
 
 //makes the server respond to the '/' route and serving the 'home.ejs' template in the 'views' directory
 app.get( '/', function ( req, res ) {
+    
     res.render( 'home', {
-        message: 'The Home Page!'
+        message: findURL('https://www.leboncoin.fr/ventes_immobilieres/1076257949.htm?ca=12_s')
     });
 });
 
